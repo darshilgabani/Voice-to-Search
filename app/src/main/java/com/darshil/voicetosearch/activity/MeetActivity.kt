@@ -11,11 +11,16 @@ import com.darshil.voicetosearch.R
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.gms.ads.rewarded.RewardItem
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 
 class MeetActivity : AppCompatActivity() {
-    lateinit var nextButton : ImageView
+    lateinit var nextButton: ImageView
 
-    lateinit var mAdView : AdView
+    lateinit var mAdView: AdView
+
+    lateinit var adRequest: AdRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +33,9 @@ class MeetActivity : AppCompatActivity() {
     }
 
     private fun onClick() {
-        nextButton.setOnClickListener(View.OnClickListener {
-            startActivity(Intent(this@MeetActivity,SearchTypeActivity::class.java))
-        })
+        nextButton.setOnClickListener {
+            startActivity(Intent(this@MeetActivity, SearchTypeActivity::class.java))
+        }
     }
 
     private fun initVar() {
@@ -39,7 +44,7 @@ class MeetActivity : AppCompatActivity() {
         MobileAds.initialize(this) {}
 
         mAdView = findViewById(R.id.adView)
-        val adRequest = AdRequest.Builder().build()
+        adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
     }
 }

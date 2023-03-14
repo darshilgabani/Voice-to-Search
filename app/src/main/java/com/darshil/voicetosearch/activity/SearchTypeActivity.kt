@@ -5,30 +5,28 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.ImageButton
 import android.widget.Toast
-import android.window.OnBackInvokedDispatcher
-import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.darshil.voicetosearch.R
+import com.darshil.voicetosearch.ads.Utils
+import com.google.android.ads.nativetemplates.TemplateView
 import com.google.android.gms.ads.*
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+
 
 class SearchTypeActivity : AppCompatActivity() {
     private lateinit var voiceButton : CardView
     private lateinit var keyboardButton : CardView
 
+    private lateinit var template : TemplateView
+
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var sharedPreferencesEditor: SharedPreferences.Editor
 
-    lateinit var mAdView : AdView
+    lateinit var adRequest : AdRequest
 
     companion object{
         private const val REQUEST_AUDIO_RECORD = 1
@@ -42,6 +40,12 @@ class SearchTypeActivity : AppCompatActivity() {
 
         onClick()
 
+        loadAds()
+
+    }
+
+    private fun loadAds() {
+        Utils().loadNativeAds(this,template,getString(R.string.NativeAdUnitId), adRequest)
     }
 
     private fun onClick() {
@@ -64,14 +68,14 @@ class SearchTypeActivity : AppCompatActivity() {
         voiceButton = findViewById(R.id.voiceButton)
         keyboardButton = findViewById(R.id.keyboardButton)
 
+        template = findViewById(R.id.nativeAdTemplate)
+        
         sharedPreferences = getSharedPreferences("My Language", MODE_PRIVATE)
         sharedPreferencesEditor = sharedPreferences.edit()
 
         MobileAds.initialize(this) {}
 
-        mAdView = findViewById(R.id.adView)
-        val adRequest = AdRequest.Builder().build()
-        mAdView.loadAd(adRequest)
+        adRequest = AdRequest.Builder().build()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

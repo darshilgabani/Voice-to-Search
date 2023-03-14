@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1001560025981",
+    "project_id": "voice-to-search-5911b",
+    "storage_bucket": "voice-to-search-5911b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1001560025981:android:078b4ff0751625146d7a14",
+        "android_client_info": {
+          "package_name": "com.darshil.voicetosearch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1001560025981-antqt1vjrgf2nlhdqtvqbcrvv190je4p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHCboBi8sH3duc57JApVVZQ5whTjrwLzs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1001560025981-antqt1vjrgf2nlhdqtvqbcrvv190je4p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

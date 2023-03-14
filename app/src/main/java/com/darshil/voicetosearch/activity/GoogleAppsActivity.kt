@@ -1,6 +1,5 @@
 package com.darshil.voicetosearch.activity
 
-import android.app.SearchManager
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -12,10 +11,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.darshil.voicetosearch.R
+import com.darshil.voicetosearch.ads.Utils
 import com.darshil.voicetosearch.model.FunctionalityClass
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.rewarded.RewardedAd
 
 class GoogleAppsActivity : AppCompatActivity() {
     private lateinit var gmailButton: CardView
@@ -27,7 +28,7 @@ class GoogleAppsActivity : AppCompatActivity() {
     private lateinit var googleButton: CardView
     private lateinit var mapButton: CardView
 
-    lateinit var mAdView : AdView
+    lateinit var adRequest: AdRequest
 
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var sharedPreferencesEditor: SharedPreferences.Editor
@@ -45,10 +46,14 @@ class GoogleAppsActivity : AppCompatActivity() {
 
         onClick()
 
-        activityResult =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        activityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 onResult(it)
             }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Utils().loadInterstitialAds(this,getString(R.string.InterstitialAdUnitId),adRequest,this)
     }
 
     private fun onResult(activityResult: ActivityResult) {
@@ -270,14 +275,12 @@ class GoogleAppsActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("My Language", MODE_PRIVATE)
         sharedPreferencesEditor = sharedPreferences.edit()
 
+        adRequest = AdRequest.Builder().build()
+
         language = sharedPreferences.getString("language", "")
         requestCode = sharedPreferences.getInt("googleRequestCode", 0)
 
         MobileAds.initialize(this) {}
-
-        mAdView = findViewById(R.id.adView)
-        val adRequest = AdRequest.Builder().build()
-        mAdView.loadAd(adRequest)
 
     }
 

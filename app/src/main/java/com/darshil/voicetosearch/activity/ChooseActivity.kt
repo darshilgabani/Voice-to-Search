@@ -5,9 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.cardview.widget.CardView
 import com.darshil.voicetosearch.R
+import com.darshil.voicetosearch.ads.Utils
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import okhttp3.internal.Util
 
 class ChooseActivity : AppCompatActivity() {
     lateinit var socialMediaButton : CardView
@@ -17,6 +21,10 @@ class ChooseActivity : AppCompatActivity() {
 
     lateinit var mAdView : AdView
 
+    lateinit var adRequest: AdRequest
+
+    private var rewardedAd: RewardedAd? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose)
@@ -25,6 +33,11 @@ class ChooseActivity : AppCompatActivity() {
 
         onClick()
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Utils().loadRewardedAds(this,getString(R.string.RewardedAdUnitId),adRequest,this)
     }
 
     private fun onClick() {
@@ -51,6 +64,8 @@ class ChooseActivity : AppCompatActivity() {
         shoppingAppsButton = findViewById(R.id.shoppingAppsButton)
         musicAppsButton = findViewById(R.id.musicAppsButton)
         googleAppsButton = findViewById(R.id.googleAppsButton)
+
+        adRequest = AdRequest.Builder().build()
 
         MobileAds.initialize(this) {}
 

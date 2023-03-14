@@ -10,6 +10,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.darshil.voicetosearch.R
+import com.darshil.voicetosearch.ads.Utils
+import com.google.android.ads.nativetemplates.TemplateView
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
@@ -18,10 +20,12 @@ class LanguageActivity : AppCompatActivity() {
     lateinit var nextButton: CardView
     lateinit var spinner: Spinner
 
+    private lateinit var template : TemplateView
+
+    lateinit var adRequest : AdRequest
+
     lateinit var sharedPreferences: SharedPreferences
     lateinit var sharedPreferencesEditor: SharedPreferences.Editor
-
-    lateinit var mAdView : AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,11 +37,18 @@ class LanguageActivity : AppCompatActivity() {
 
         onSelect()
 
+        loadAds()
+
+
         /* val adapter = ArrayAdapter.createFromResource(this@LanguageActivity, R.array.spinner_item, R.layout.color_spinner_layout)
          adapter.setDropDownViewResource(R.layout.spinner_dropdown_layout)
          spinner.setAdapter(adapter)
          spinner.setOnItemSelectedListener(this@LanguageActivity)*/
 
+    }
+
+    private fun loadAds() {
+        Utils().loadNativeAds(this,template,getString(R.string.NativeAdUnitId), adRequest)
     }
 
     private fun onSelect() {
@@ -190,13 +201,13 @@ class LanguageActivity : AppCompatActivity() {
         nextButton = findViewById(R.id.nextButton)
         spinner = findViewById(R.id.spinner)
 
+        template = findViewById(R.id.nativeAdTemplate)
+
         sharedPreferences = getSharedPreferences("My Language", MODE_PRIVATE)
         sharedPreferencesEditor = sharedPreferences.edit()
 
         MobileAds.initialize(this) {}
 
-        mAdView = findViewById(R.id.adView)
-        val adRequest = AdRequest.Builder().build()
-        mAdView.loadAd(adRequest)
+        adRequest = AdRequest.Builder().build()
     }
 }

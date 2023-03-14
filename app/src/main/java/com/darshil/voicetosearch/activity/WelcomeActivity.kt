@@ -3,17 +3,24 @@ package com.darshil.voicetosearch.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import com.darshil.voicetosearch.R
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.admanager.AdManagerAdRequest
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class WelcomeActivity : AppCompatActivity() {
-    lateinit var startButton : ImageView
+    lateinit var startButton: ImageView
 
-    lateinit var mAdView : AdView
+    lateinit var mAdView: AdView
+
+    lateinit var adRequest : AdRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +33,9 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     private fun onClick() {
-        startButton.setOnClickListener(View.OnClickListener {
-            startActivity(Intent(this@WelcomeActivity,MeetActivity::class.java))
-        })
+        startButton.setOnClickListener {
+            startActivity(Intent(this@WelcomeActivity, MeetActivity::class.java))
+        }
     }
 
     private fun initVar() {
@@ -37,7 +44,8 @@ class WelcomeActivity : AppCompatActivity() {
         MobileAds.initialize(this) {}
 
         mAdView = findViewById(R.id.adView)
-        val adRequest = AdRequest.Builder().build()
+        adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
     }
+
 }

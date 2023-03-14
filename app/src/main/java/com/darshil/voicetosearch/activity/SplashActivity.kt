@@ -13,14 +13,17 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        val splashScreen = installSplashScreen()
-        splashScreen.setKeepOnScreenCondition { true }
+        val androidVersion = android.os.Build.VERSION.SDK_INT
+        if (androidVersion >= android.os.Build.VERSION_CODES.S) {
+            val splashScreen = installSplashScreen()
+            splashScreen.setKeepOnScreenCondition { true }
+        }
 
         val scheduler = Executors.newSingleThreadScheduledExecutor()
         scheduler.schedule({
             startActivity(Intent(this, WelcomeActivity::class.java))
             finish()
-        }, 2000, TimeUnit.MILLISECONDS)
+        }, 1000, TimeUnit.MILLISECONDS)
 
     }
 }

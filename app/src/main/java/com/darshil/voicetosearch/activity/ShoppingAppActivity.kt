@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.darshil.voicetosearch.R
+import com.darshil.voicetosearch.ads.Utils
 import com.darshil.voicetosearch.model.FunctionalityClass
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
@@ -26,7 +27,7 @@ class ShoppingAppActivity : AppCompatActivity() {
     private lateinit var snapDealButton: CardView
     private lateinit var jioMartButton: CardView
 
-    lateinit var mAdView : AdView
+    lateinit var adRequest: AdRequest
 
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var sharedPreferencesEditor: SharedPreferences.Editor
@@ -49,6 +50,11 @@ class ShoppingAppActivity : AppCompatActivity() {
                 onResult(it)
             }
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Utils().loadInterstitialAds(this,getString(R.string.InterstitialAdUnitId),adRequest,this)
     }
 
     private fun onResult(activityResult: ActivityResult) {
@@ -312,9 +318,7 @@ class ShoppingAppActivity : AppCompatActivity() {
 
         MobileAds.initialize(this) {}
 
-        mAdView = findViewById(R.id.adView)
-        val adRequest = AdRequest.Builder().build()
-        mAdView.loadAd(adRequest)
+        adRequest = AdRequest.Builder().build()
 
     }
 }

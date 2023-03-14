@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name">Voice to Search</string>
 
-    <string name="bannerAdUnitId">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="AdMobAppId">ca-app-pub-3940256099942544~3347511713</string>
+<!--    <string name="bannerAdUnitId">ca-app-pub-3940256099942544/6300978111</string>-->
+<!--    <string name="AdMobAppId">ca-app-pub-3940256099942544~3347511713</string>-->
+
+    <string name="bannerAdUnitId">ca-app-pub-7953512421891958/7485305404</string>
+    <string name="InterstitialAdUnitId">ca-app-pub-7953512421891958/7691194661</string>
+    <string name="NativeAdUnitId">ca-app-pub-7953512421891958/3141575564</string>
+    <string name="RewardedAdUnitId">ca-app-pub-7953512421891958/8456098533</string>
+    <string name="AdMobAppId">ca-app-pub-7953512421891958~4779251019</string>
 
     <string-array name="spinner_item">
         <item>Select Language</item>

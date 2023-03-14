@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
 
     <queries>
         <intent>
@@ -23,7 +25,7 @@
 
 
         <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
-<!--        ca-app-pub-3813529721199626~7597315610-->
+        <!--        ca-app-pub-3813529721199626~7597315610-->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/AdMobAppId" />

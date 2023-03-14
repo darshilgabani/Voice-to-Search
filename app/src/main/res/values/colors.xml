@@ -8,6 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="trans">@android:color/transparent</color>
+
 
     <color name="seed">#A894FF</color>
     <color name="md_theme_light_primary">#624EB3</color>
